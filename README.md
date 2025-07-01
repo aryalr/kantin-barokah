@@ -1,48 +1,53 @@
-# Aplikasi Point of Sale (POS) Sederhana
+# Kantin Barokah - Aplikasi Point of Sale (POS)
 
-Sebuah aplikasi web Point of Sale (POS) yang dibangun dengan PHP native, dirancang untuk mengelola produk, supplier, transaksi penjualan, dan pengguna. Aplikasi ini memiliki dua peran pengguna: Admin dan Kasir, dengan hak akses yang berbeda.
+Aplikasi web Point of Sale (POS) sederhana yang dibangun dengan PHP native, dirancang untuk mengelola operasional "Kantin Barokah". Aplikasi ini memfasilitasi manajemen produk, supplier, transaksi penjualan, dan pengguna dengan dua peran berbeda: **Admin** dan **Kasir**.
 
-## Fitur Utama
+## ✨ Fitur Utama
 
-- **Manajemen Produk:** Tambah, lihat, edit, dan hapus data produk.
-- **Manajemen Supplier:** Tambah, lihat, edit, dan hapus data supplier.
+- **Manajemen Produk:** Kelola data produk (tambah, lihat, edit, hapus).
+- **Manajemen Supplier:** Kelola data supplier (tambah, lihat, edit, hapus).
 - **Manajemen Pengguna:** Admin dapat menambah dan menghapus pengguna (kasir).
-- **Transaksi Penjualan:** Membuat transaksi baru dan melihat riwayat transaksi.
-- **Laporan Penjualan:** Menghasilkan laporan penjualan dan mencetaknya.
-- **Sistem Otentikasi:** Proses login dan logout yang aman.
+- **Transaksi Penjualan:**
+    - Membuat transaksi penjualan baru.
+    - Melihat riwayat dan detail transaksi.
+- **Laporan Penjualan:**
+    - Menghasilkan laporan penjualan periodik.
+    - Opsi untuk mencetak laporan.
+- **Sistem Otentikasi:** Proses login dan logout yang aman untuk pengguna.
 - **Kontrol Hak Akses (Otorisasi):**
-  - **Admin:** Memiliki akses penuh ke semua fitur.
-  - **Kasir:** Hanya dapat mengakses modul transaksi dan laporan.
+    - **Admin:** Akses penuh ke semua fitur, termasuk manajemen produk, supplier, dan pengguna.
+    - **Kasir:** Akses terbatas pada modul transaksi dan laporan penjualan.
 
-## Teknologi yang Digunakan
+## 🛠️ Teknologi yang Digunakan
 
 - **Backend:** PHP 8.x (Native)
 - **Database:** MySQL / MariaDB
 - **Frontend:** Smarty Template Engine, HTML, CSS
 - **Manajemen Dependensi:** Composer
-- **Pengelolaan Konfigurasi:** `phpdotenv` untuk environment variables
+- **Konfigurasi:** `vlucas/phpdotenv` untuk pengelolaan *environment variables*.
 
-## Panduan Instalasi
+## 🚀 Panduan Instalasi
 
-Ikuti langkah-langkah berikut untuk menjalankan aplikasi ini di lingkungan lokal Anda.
+Ikuti langkah-langkah berikut untuk menjalankan aplikasi di lingkungan lokal Anda.
 
 ### 1. Prasyarat
 
-- Web Server (misalnya, Apache, Nginx)
-- PHP 8.0 atau lebih tinggi
+- Web Server (XAMPP, Laragon, Apache, Nginx)
+- PHP 8.0 atau versi lebih tinggi
 - MySQL atau MariaDB
 - Composer
 
 ### 2. Clone Repository
 
 ```bash
-git clone <URL_REPOSITORY_ANDA> pos-app
-cd pos-app
+git clone https://github.com/username/kantin-barokah.git
+cd kantin-barokah
 ```
+*(Ganti `https://github.com/username/kantin-barokah.git` dengan URL repository Anda)*
 
 ### 3. Instal Dependensi
 
-Jalankan Composer untuk menginstal semua dependensi yang diperlukan.
+Jalankan Composer untuk menginstal semua dependensi PHP yang diperlukan.
 
 ```bash
 composer install
@@ -50,10 +55,8 @@ composer install
 
 ### 4. Konfigurasi Database
 
-1.  Buat sebuah database baru di MySQL/MariaDB Anda dengan nama `pos_app`.
-2.  Impor struktur tabel dan data awal dari salah satu file SQL yang disediakan:
-    - `sql/pos_app.sql` (Struktur dan data)
-    - `sql/pos_app_laragon.sql` (Disesuaikan untuk Laragon)
+1.  Buat database baru di MySQL/MariaDB Anda (misalnya, `kantin_barokah`).
+2.  Impor struktur tabel dan data awal dari file `sql/pos_app_laragon.sql` ke dalam database yang baru Anda buat.
 
 ### 5. Konfigurasi Lingkungan (.env)
 
@@ -63,57 +66,60 @@ composer install
     cp .env.example .env
     ```
 
-2.  Buka file `.env` dan sesuaikan kredensial database jika berbeda dari pengaturan default.
+2.  Buka file `.env` dan sesuaikan konfigurasi database dengan pengaturan lokal Anda.
 
     ```dotenv
     DB_HOST=localhost
-    DB_DATABASE=pos_app
+    DB_DATABASE=kantin_barokah
     DB_USERNAME=root
     DB_PASSWORD=
     ```
 
-### 6. Buat Akun Admin Awal
+### 6. Buat Akun Admin
 
-Aplikasi ini menyediakan skrip untuk membuat akun admin pertama kali. Jalankan skrip berikut melalui browser atau CLI.
+Aplikasi ini menyediakan skrip sederhana untuk membuat akun admin pertama kali.
 
-- **Via Browser:** Buka `http://localhost/pos-app/public/buat_admin.php`
-- **Via CLI:** `php public/buat_admin.php`
+- **Melalui Browser:** Buka `http://localhost/kantin-barokah/public/buat_admin.php`
+- **Melalui CLI:** `php public/buat_admin.php`
 
-Skrip ini akan membuat pengguna dengan detail berikut:
+Skrip ini akan membuat pengguna dengan kredensial default:
 - **Username:** `admin`
-- **Password:** `password_rahasia` (Sangat disarankan untuk mengubah password ini di dalam skrip sebelum menjalankannya).
+- **Password:** `password`
 
-**PENTING:** Hapus atau amankan file `public/buat_admin.php` setelah akun admin berhasil dibuat untuk mencegah penyalahgunaan.
+**PENTING:** Sangat disarankan untuk mengubah password default di dalam skrip `buat_admin.php` sebelum menjalankannya, dan hapus file tersebut setelah akun admin berhasil dibuat untuk alasan keamanan.
 
 ### 7. Jalankan Aplikasi
 
-Atur *document root* web server Anda ke direktori `public/`. Buka aplikasi di browser Anda (misalnya, `http://localhost/pos-app/public/`).
+Atur *document root* pada web server Anda ke direktori `public/`. Buka aplikasi di browser Anda (misalnya, `http://localhost/kantin-barokah/public/`).
 
-## Cara Penggunaan
-
-- **Login:** Gunakan kredensial akun yang telah Anda buat (admin atau kasir) untuk masuk ke sistem.
-- **Navigasi:** Gunakan menu navigasi untuk mengakses berbagai modul sesuai dengan hak akses Anda.
-
-## Struktur Folder Proyek
+## 📂 Struktur Proyek
 
 ```
-/pos-app
-├── app/                    # Logika inti aplikasi
+/kantin-barokah
+├── app/                    # Logika inti aplikasi (MVC)
 │   ├── Config/             # Konfigurasi (Database)
 │   ├── Controllers/        # Controller untuk menangani request
 │   ├── Middleware/         # Middleware (Otentikasi, Otorisasi)
 │   └── Models/             # Model untuk interaksi database
 ├── public/                 # Document root, file yang diakses publik
-│   └── index.php           # Titik masuk utama (front controller)
+│   └── index.php           # Titik masuk utama (Front Controller)
 ├── resources/              # Aset frontend
 │   └── views/              # File template Smarty (.tpl)
 ├── routes/                 # Definisi rute aplikasi
 │   └── web.php             # Rute utama
 ├── sql/                    # File dump database
-├── storage/                # Folder untuk file cache, log, dll.
+├── storage/                # Direktori untuk file cache, log, dll.
 ├── vendor/                 # Dependensi dari Composer
-├── .env                    # File konfigurasi lingkungan (lokal)
+├── .env                    # File konfigurasi lingkungan (tidak di-commit)
 ├── .env.example            # Contoh file .env
 ├── composer.json           # Konfigurasi Composer
-└── README.md               # Dokumentasi proyek
+└── README.md               # File ini
 ```
+
+## 🤝 Kontribusi
+
+Kontribusi dalam bentuk *pull request*, laporan *bug*, atau saran fitur sangat diterima.
+
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](LICENSE).
